@@ -20,3 +20,4 @@ Please perform a thorough cleanliness review of the entire codebase:
 - If we're using clean architecture, and we almost always are, be sure that's super clean and crisp
 - If we're using fpdart, then be sure we're using Failure and Either and full functional programming idioms.
 - Repeat myself: no errors, warnings, or info problems. Ever. Fix, then run format again.
+- Finally, update memory bank.

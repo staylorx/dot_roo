@@ -6,6 +6,7 @@ description: Comprehensive code tidy
 
 Please perform a thorough cleanliness review of the entire codebase:
 
+- You don't need to overthink or sequentially think on any of this.
 - No Code style violations
 - No Potential bugs
 - No Non-idiomatic Dart

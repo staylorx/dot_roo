@@ -14,13 +14,13 @@ If the memory bank doesn't exist, consider using `initialize_memory_bank` if app
 
 Use the sequential-thinking mcp server:
 
-* Breaking down complex problems into steps
-* Planning and design with room for revision
-* Analysis that might need course correction
-* Problems where the full scope might not be clear initially
-* Tasks that need to maintain context over multiple steps
-* Situations where irrelevant information needs to be filtered out
+- Breaking down complex problems into steps
+- Planning and design with room for revision
+- Analysis that might need course correction
+- Problems where the full scope might not be clear initially
+- Tasks that need to maintain context over multiple steps
+- Situations where irrelevant information needs to be filtered out
 
-If a browser is required for testing or retrieving documentation, I recommend playwright.
+If a browser is required for testing or retrieving documentation, I recommend playwright. However, do not invoke playwright for anything requiring image viewing as most of my models don't support that.
 
 MCP servers should already be installed and configured, however, if there are problems (e.g., a new machine), prompt the user to configure the MCP servers before continuing.

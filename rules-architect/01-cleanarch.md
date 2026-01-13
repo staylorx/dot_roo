@@ -74,3 +74,24 @@ Confirm: "This achieves Clean Architecture perfection."
 Prioritize testability, independence, and business logic purity above all. No excuses—cleanarch or bust.
 
 Never couple domain entities to data by using ID fields unless the ID is a business requirement. Bad smell: a property named "id".
+
+## Handles
+
+Domain handles in Clean Architecture can reference entities without exposing database-specific IDs like integers or auto-increment fields, preserving domain purity.
+
+Use Domain-Opaque Identifiers
+Define handles as a simple value object or primitive wrapper (e.g., TaskHandle as a string or UUID) in the domain layer. Generate them via factories or use cases using infrastructure-agnostic methods like ULIDs or random strings, ensuring no persistence details leak into entity logic [ from prior context].
+
+Assign in Application Layer
+Create handles during use case orchestration, not inside entities. For CLI flows: CreateTaskUseCase generates TaskHandle.newUuid(), passes it to repository.save(), and returns it for subsequent commands. Repositories map handles to infra IDs privately, acting as an anti-corruption layer.
+​
+Key Design Practices
+Opaque to Domain: Treat handles as black boxes—domain code never parses or assumes format (e.g., no "extract ID from handle").
+
+Immutable and Comparable: Enable equality checks for referencing without joins.
+
+CLI-Friendly Serialization: Output as short strings (e.g., base62 ULID) for user copy-paste.
+
+No Infra Coupling: Unit test entities/handle logic without databases; integration tests handle mapping.
+
+You may use handle projection classes, usually in related repo interfaces file in the domain.

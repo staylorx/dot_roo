@@ -3,7 +3,7 @@
 ## Overview
 
 - Big fan of the `shouldy` package. Use it as much as you can.
-- For groups of assertions look into Shouldly.assertAll (or assertAnd, assertAny, etc.).
+- For groups of assertions look into Should.satisfyAllConditions([]).
 - Setup test groups with "Given" in the name, then a group with "When" in the name, and finally tests with "Then" in the names. Emulate BDD with names as much as reasonably possible.
 
 ## BDD-Style Test Structure Template

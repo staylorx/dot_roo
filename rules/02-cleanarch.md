@@ -17,7 +17,7 @@ With dart, use melos as much as possible to monorepo a very strict chain of depd
 
 ## Data Layer Adapter Implentations
 
-If our repo impls have adapter-specific language then we may need an adapter of adapters, that kind of thing. Watch out for this layer specifically, it's the pivot of the whole strategy and can get muddy fast.
+If our repo impls have adapter-specific language then we may need an adapter of adapters, that kind of thing. Watch out for this layer specifically, as it can look like a dependency direction pivot, but it isn't. We'll pivot at the wireup in the application or presentation layer if we've done this right.
 
 - repo_impls (or similar) → contracts, entities, and the datasource packages (or just datasource interfaces if you keep it stricter)
 

@@ -1,34 +1,39 @@
 # Clean Architecture
 
 When it doubt always assume a clean architectural style, i.e., domain, data, and presentation layers at a minimum.
-Domain and data layers should be in a seperate package folder to ensure crisp separation.
-Usecases must always use dependency injection.
-No riverpod, getit, or any other state or DI mechanisms in the domain and data layers.
 
-With dart, use melos as much as possible to monorepo a very strict chain of depdenencies:
+Map your components to Clean Architecture's four layers using separate packages/modules/projects (e.g., Domain, Application, Infrastructure, Presentation), ordered inward for dependencies: Presentation → Application → Domain ← Infrastructure (arrows show allowed flows). Top-level folders scream business domain (e.g., src/Ordering or src/Cart), with layers nested below; each layer is a distinct project to enforce rules via compiler.
 
-## Domain layer
+Exact Layer Mapping & Dependencies
+Your items fit precisely:
 
-- entities (depends on nothing)
+Layer (Package/Project) Your Components Dependencies
+Domain (innermost) entities, value_objects None (pure)
+​
+Application usecases, repository_contracts (interfaces) → Domain only
+​
+Infrastructure (outer) repository_implementation, low-level API/database stuff (DbContext, EF configs, external libs) → Application + Domain
+​
+Presentation (outermost) app/facade (controllers, UI, entry points) → Application
+​
+Recommended Folder Layout
+Use one project per layer for strict enforcement; inside, group by feature/use case:
 
-- contracts → entities (repository interfaces optionally datasource interfaces)
-
-- use_cases → contracts, entities
-
-## Data Layer Adapter Implentations
-
-If our repo impls have adapter-specific language then we may need an adapter of adapters, that kind of thing. Watch out for this layer specifically, as it can look like a dependency direction pivot, but it isn't. We'll pivot at the wireup in the application or presentation layer if we've done this right.
-
-- repo_impls (or similar) → contracts, entities, and the datasource packages (or just datasource interfaces if you keep it stricter)
-
-## Data Layer Adapters
-
-Four are given here as examples, keeping in mind that `(hive -or- sembast) -and- api --and-- yaml` is wired up later in the application or presentation layer (getit, riverpod, bloc, manually, etc.).
-
-- datasource_hive → contracts/entities + Hive libs
-
-- datasource_sembast → contracts/entities + Sembast libs
-
-- datasource_duo_api → contracts/entities + HTTP/auth libs
-
-0 adapter_yaml_io → entities (and/or contracts) + YAML libs
+text
+Solution/
+├── src/
+│ ├── Domain/ # Entities, ValueObjects
+│ │ ├── Entities/
+│ │ └── ValueObjects/
+│ ├── Application/ # UseCases, Contracts
+│ │ ├── UseCases/ # Or Features/Ordering/Commands
+│ │ │ └── Ordering/
+│ │ └── Contracts/ # IRepository, etc.
+│ ├── Infrastructure/ # Impls + low-level
+│ │ ├── Persistence/ # Repos impls, DbContext
+│ │ └── External/ # APIs, services
+│ └── Presentation.Web/ # Or .Api, .App (Facade)
+│ ├── Controllers/ # Or Pages/
+│ └── Facades/ # App entry
+└── tests/ # Unit per layer
+Dependency Rule: Use DI to inject; Application references Domain project only, Infrastructure references Application+Domain, Presentation references Application. No reverse refs.

@@ -7,3 +7,5 @@ Read the memory bank backlog and check the codebase, pick any one issue marked w
 Keep in mind some TODOs may have already been completed in other work. Feel free to inspect and validate that the task has been done, and mark it as such; take credit for it!
 
 When complete, and after acceptance by the user/owner, mark the item as "DONE" that you've reviewed it and marked it done. You needed remove the lines. Marking it as DONE will be sufficient here.
+
+A PM should also have a keen eye on what items on the backlog have simply aged away due to irrelevancy. Take credit for them and mark them as DONE, but add a sentence to it as to why we moved past it and didn't do it.
